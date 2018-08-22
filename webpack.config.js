@@ -1,12 +1,13 @@
 const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const autoprefixer = require('autoprefixer');
 // const webpack = require('webpack');
 
 
 module.exports = {
   entry: [
     './src/js/index.js',
-    './src/scss/main.scss'
+    './src/scss/index.scss'
   ],
   output: {
     filename: './bundle.js'
@@ -42,6 +43,17 @@ module.exports = {
               options: {
                 sourceMap: true,
                 minimize: true
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                  plugins: [
+                      autoprefixer({
+                          browsers:['last 4 version']
+                      })
+                  ],
+                  sourceMap: true
               }
             },
             {
