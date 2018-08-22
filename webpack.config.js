@@ -26,11 +26,29 @@ module.exports = {
         }
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|svg|woff|html)$/,
         use: [
           {
             loader: 'file-loader',
             options: {name: 'img/[name].[ext]'}  
+          }
+        ]
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {name: 'img/css-bg/[name].[ext]'}  
+          }
+        ]
+      },
+      {
+        test: /\.(woff)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {name: 'fonts/[name].[ext]'}  
           }
         ]
       },
@@ -81,8 +99,8 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     port: 3000,
-    watchContentBase: true,
     host: '192.168.0.100',
+    watchContentBase: true,
     // hot: true,
   }
 };
