@@ -1,4 +1,4 @@
-@import './base.css';
+@import './normalize.css';
 $font-stack: 'Arial','Open Sans','Helvetica Neue',sans-serif;
 
 body {
@@ -7,6 +7,7 @@ body {
     font-size: 20px;
     height: 300px;
     background-image: url(../img/smile.png);
+    transition: 2s all ease;
   }
   #second {
     background: orange;
