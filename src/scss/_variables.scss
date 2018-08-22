@@ -1,0 +1,12 @@
+@font-face {
+  font-family: ProximaNova;
+  src: url(../fonts/ProximaNova-Regular.woff);
+  font-weight: normal;
+}
+@font-face {
+  font-family: ProximaNova;
+  src: url(../fonts/ProximaNova-Light.woff);
+  font-weight: 300;
+}
+
+$font-stack: 'ProximaNova', 'Helvetica Neue', 'Arial', sans-serif;
