@@ -4,10 +4,10 @@
   "description": "test task",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --mode development",
+    "dev": "webpack",
     "build": "webpack --mode production",
-    "watch": "webpack --mode development --watch",
-    "start": "webpack-dev-server --mode development --open"
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server --content-base dist --port 3000 --inline --hot"
   },
   "repository": {
     "type": "git",
@@ -28,10 +28,12 @@
     "css-loader": "^1.0.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^2.0.0",
+    "mini-css-extract-plugin": "^0.4.2",
     "node-sass": "^4.9.3",
     "postcss-loader": "^3.0.0",
     "resolve-url-loader": "^2.3.0",
     "sass-loader": "^7.1.0",
+    "style-loader": "^0.22.1",
     "webpack": "^4.17.0",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"

@@ -1,106 +1,55 @@
-const path = require('path');
+const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const autoprefixer = require('autoprefixer');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const autoprefixer = require("autoprefixer");
 // const webpack = require('webpack');
 
-
 module.exports = {
+  mode: "development",
   entry: [
-    './src/js/index.js',
-    './src/scss/index.scss'
+    "webpack/hot/dev-server",
+    "./src/js/index.js",
+    "./src/scss/index.scss"
   ],
   output: {
-    filename: './bundle.js'
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist")
   },
   devtool: "source-map",
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules)/,
-        include: path.resolve(__dirname, 'src/js'),
+        include: path.resolve(__dirname, "src/js"),
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['env', 'react'] 
+            presets: ["env", "react"]
           }
         }
-      },
-      {
-        test: /\.(png|jpg|gif|svg|woff|html)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {name: 'img/[name].[ext]'}  
-          }
-        ]
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
         use: [
           {
-            loader: 'file-loader',
-            options: {name: 'img/css-bg/[name].[ext]'}  
+            loader: "file-loader",
+            options: { name: "img/css-bg/[name].[ext]" }
           }
         ]
       },
       {
-        test: /\.(woff)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {name: 'fonts/[name].[ext]'}  
-          }
-        ]
-      },
-      {
-        test: /\.(sass|scss)$/,
-        include: path.resolve(__dirname, 'src/scss'),
-        use: ExtractTextPlugin.extract({
-          use: [{
-              loader: "css-loader",
-              options: {
-                sourceMap: true,
-                minimize: true
-              }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                  plugins: [
-                      autoprefixer({
-                          browsers:['last 4 version']
-                      })
-                  ],
-                  sourceMap: true
-              }
-            },
-            {
-              loader: "resolve-url-loader"
-            },
-            {
-              loader: "sass-loader",
-              options: {
-                sourceMap: true
-              }
-            }
-          ]
-        })
-      },
+        test: /\.s?css$/,
+        use: ["style-loader", "css-loader", "sass-loader"]
+        // , "resolve-url-loader"
+      }
     ]
   },
-  
+
   plugins: [
-    new ExtractTextPlugin({
-      filename: './style.bundle.css',
-      allChunks: true,
-    }),
-    // new webpack.HotModuleReplacementPlugin(),
-  ],
-  devServer: {
-    contentBase: './dist',
-    port: 3000,
-    host: '192.168.0.100',
-    watchContentBase: true,
-    // hot: true,
-  }
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    })
+  ]
 };
