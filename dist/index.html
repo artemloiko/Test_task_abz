@@ -5,32 +5,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="img/favicons/favicon.png">
-  <link rel="stylesheet" href="style.bundle.css">
+  <style>
+    @font-face {
+      font-family: ProximaNova;
+      src: url(./fonts/ProximaNova-Regular.woff);
+      font-weight: normal;
+    }
+    @font-face {
+      font-family: ProximaNova;
+      src: url(./fonts/ProximaNova-Light.woff);
+      font-weight: 300;
+    }
+  </style>
+  <!-- <link rel="stylesheet" href="main.css"> -->
+  <script src="bundle.js"></script>
 </head>
 <body>
-
-  <header class="header">
-    <a href="#"><img src="img/Logo.png" alt="DENTEEZ" class="logo"></a>
-    <form action="" class="search">
-      <input type="button" class="search__button">
-      <input type="text" class="search__field">
-    </form>
-    <a href="#" class="button button--messages"></a>
-    <a href="#" class="button button--notification"></a>
-    <div class="profile">
-      <img src="img/user.png" alt="profile_img" class="profile__img">
-      <div class="profile__fullname">Maximillian Beekeeper</div>
-    </div>
-  </header>
+  <div class="header-container">
+    <header class="header">
+      <a href="#" class="logo"><img src="img/Logo.png" alt="DENTEEZ"></a>
+      <form action="" class="search">
+        <input type="button" class="search__button">
+        <input type="text" class="search__field" placeholder="Company Name">
+      </form>
+      <nav class="header-nav">
+        <a href="#" class="header-nav__link">
+          <img src="img/icons/icon_chat.png" alt="icon_chat">
+        </a>
+        <a href="#" class="header-nav__link">
+          <img src="img/icons/icon_notification.png" alt="icon_notification">
+        </a>
+      </nav>
+      <div class="profile">
+        <img src="img/user.png" alt="profile_img" class="profile__img">
+        <div class="profile__fullname">Maximillian Beekeeper</div>
+      </div>
+    </header>
+  </div>
   <div class="container">
     <aside class="sidebar sidebar--left">
 
-      <nav class="sidebar-block">
+      <nav>
         <ul class="sidebar-nav">
-          <li><a href="#" class="sidebar-nav__link">Feed</a></li>
-          <li><a href="#" class="sidebar-nav__link">Ask a Colleague</a></li>
-          <li><a href="#" class="sidebar-nav__link">Companies</a></li>
-          <li><a href="#" class="sidebar-nav__link">Service Directory</a></li>
+          <li><a href="#" class="sidebar-nav__link sidebar-nav__link--feed">Feed</a></li>
+          <li><a href="#" class="sidebar-nav__link sidebar-nav__link--ask">Ask a Colleague</a></li>
+          <li><a href="#" class="sidebar-nav__link sidebar-nav__link--companies">Companies</a></li>
+          <li><a href="#" class="sidebar-nav__link sidebar-nav__link--services">Service Directory</a></li>
         </ul>
       </nav>
 
@@ -45,7 +65,7 @@
       <div class="sidebar-block">
         <div class="sidebar-block-header">
           <h4 class="sidebar-block-header__title">Featured Companies</h4>
-          <a href="#" class="sidebar-block-header__title">See All</a>
+          <a href="#" class="sidebar-block-header__link">See All</a>
         </div>
         <div class="sidebar-block-content">
           <div class="proposal-card">
@@ -71,13 +91,17 @@
           </div>
         </div>
       </div>
-
+      <div class="sidebar-block copyright">
+        <p class="copyright__text">Denteez Copyright 2015</p>
+        <a href="#" class="copyright__link">Terms of use</a>
+        <a href="#" class="copyright__link">Privacy Policy</a>
+      </div>
     </aside>
 
     <main class="main-content">
       <div class="main-content-header">
         <h1 class="main-content-header__title">Service Directory</h1>
-        <a href="#" class="button button--large button--addService">Add New Service</a>
+        <a href="#" class="main-content-header__button">Add New Service</a>
       </div>
       <div class="service-directory">
         <div class="service-card">
@@ -86,65 +110,76 @@
         </div>
         <div class="service-card">
           <img src="img/service.png" alt="service" class="service-card__img">
+          <h3 class="service-card__title">Associations</h3>
+        </div>
+        <div class="service-card">
+          <img src="img/service.png" alt="service" class="service-card__img">
+          <h3 class="service-card__title">Buy/Sell Dental Practice</h3>
+        </div>
+        <div class="service-card">
+          <img src="img/service.png" alt="service" class="service-card__img">
           <h3 class="service-card__title">Accounting</h3>
         </div>
         <div class="service-card">
           <img src="img/service.png" alt="service" class="service-card__img">
           <h3 class="service-card__title">Accounting</h3>
         </div>
+        <div class="service-card">
+          <img src="img/service.png" alt="service" class="service-card__img">
+          <h3 class="service-card__title">CPR/Basic Life Support Training</h3>
+        </div>
       </div>
     </main>
 
     <aside class="sidebar sidebar--right">
       
-      <div class="sidebar-block">
+      <div class="sidebar-block sidebar-block--people">
         <div class="sidebar-block-header">
           <h4 class="sidebar-block-header__title">People you may know</h4>
-          <a href="#" class="sidebar-block-header__title">See All</a>
+          <a href="#" class="sidebar-block-header__link">See All</a>
         </div>
         <div class="sidebar-block-content">
           
-          <div class="proposal-card">
-            <img src="img/proposals/human-1.png" alt="proposal-human" class="proposal-card__img">
+          <div class="proposal-card proposal-card--titleAbove">
             <h3 class="proposal-card__title">Dennis Adams</h3>
+            <img src="img/proposals/human-1.png" alt="proposal-human" class="proposal-card__img">
             <p class="proposal-card__info">Dentist (Practice Owner)</p>
             <p class="proposal-card__info">London, England</p>
             <a href="#" class="proposal-card__link">Add Friend</a>
           </div>
-          <div class="proposal-card">
-            <img src="img/proposals/human-2.png" alt="proposal-human" class="proposal-card__img">
+          <div class="proposal-card proposal-card--titleAbove">
             <h3 class="proposal-card__title">Mary Carpenter</h3>
+            <img src="img/proposals/human-2.png" alt="proposal-human" class="proposal-card__img">
             <p class="proposal-card__info">Dentist (Practice Owner)</p>
             <p class="proposal-card__info">Belgrade, Serbia</p>
             <a href="#" class="proposal-card__link">Add Friend</a>
           </div>
-          <div class="proposal-card">
-            <img src="img/proposals/human-3.png" alt="proposal-human" class="proposal-card__img">
+          <div class="proposal-card proposal-card--titleAbove">
             <h3 class="proposal-card__title">Danielle Salazar</h3>
+            <img src="img/proposals/human-3.png" alt="proposal-human" class="proposal-card__img">
             <p class="proposal-card__info">Dentist (Practice Owner)</p>
             <p class="proposal-card__info">Paris, France</p>
             <a href="#" class="proposal-card__link">Add Friend</a>
           </div>
 
         </div>
-        <div class="sidebar-block-signature">Ads By Denteez.com</div>
       </div>
 
-      <div class="sidebar-block">
+      <div class="sidebar-block sidebar-block--product">
         <div class="sidebar-block-header">
           <h4 class="sidebar-block-header__title">Featured Products</h4>
-          <a href="#" class="sidebar-block-header__title">See all</a>
+          <a href="#" class="sidebar-block-header__link">See all</a>
         </div>
         <div class="sidebar-block-content">
-          <div class="proposal-card">
-            <img src="img/proposals/product-1.png" alt="proposal-product" class="proposal-card__img">
+          <div class="proposal-card proposal-card--titleAbove">
             <h3 class="proposal-card__title">Product Name</h3>
+            <img src="img/proposals/product-1.png" alt="proposal-product" class="proposal-card__img">
             <p class="proposal-card__info">Product Short Description.</p>
             <p class="proposal-card__info">The quick brown fox jumps over the lazy dog.</p>
           </div>
-          <div class="proposal-card">
-            <img src="img/proposals/product-2.png" alt="proposal-product" class="proposal-card__img">
+          <div class="proposal-card proposal-card--titleAbove">
             <h3 class="proposal-card__title">Product Name</h3>
+            <img src="img/proposals/product-2.png" alt="proposal-product" class="proposal-card__img">
             <p class="proposal-card__info">Product Short Description.</p>
             <p class="proposal-card__info">The quick brown fox jumps over the lazy dog.</p>
           </div>
@@ -160,5 +195,6 @@
       </div>
     </aside>
   </div>
+<script src="champ.min.js"></script>
 </body>
 </html>

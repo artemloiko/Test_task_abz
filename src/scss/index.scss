@@ -1,21 +1,7 @@
 @import './normalize.css';
 @import 'variables';
+@import 'base';
 @import 'page-layout';
 @import 'components/header';
 @import 'components/sidebar';
 @import 'components/main-content';
-
-body {
-  font-family: $font-stack;
-  #first {
-    font-size: 20px;
-    height: 100px;
-    background-image: url(../img/smile.png);
-    transition: 2s all ease;
-    font-weight: 300;
-  }
-  #second {
-    background: orange;
-  }
-
-}

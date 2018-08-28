@@ -1,0 +1,37 @@
+.container {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 212px 1fr 212px;
+  grid-column-gap: 15px;
+
+  min-height: 100%;
+  width: 71%;
+  min-width: 970px;
+  max-height: 1440px;
+
+  margin: auto;
+  margin-top: 70px;
+  padding: 0 15px;
+}
+.header-container {
+  position: fixed;
+  height: 70px;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.header {
+  box-sizing: border-box;
+  @include rowFlex;
+
+  width: 71%;
+  min-width: 970px;
+  max-height: 1440px;
+  height: 70px;
+  margin: auto;
+  padding: 0 15px;
+}
+.sidebar {
+  display: flex;
+  flex-flow: column nowrap;
+}
