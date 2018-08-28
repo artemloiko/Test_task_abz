@@ -7,6 +7,7 @@
     position: relative;
     padding: 15px 0 18px 49px;
     color: #59606b;
+    //icon style
     &::before {
       content: "";
       position: absolute;
@@ -18,6 +19,7 @@
       background-repeat: no-repeat;
       background-position: center;
     }
+    //dividing line
     &::after {
       content: "";
       position: absolute;
@@ -95,19 +97,25 @@
   &__title {
     color: $mainTextColor;
     font-size: 16px;
-    margin: 0;
+    margin: 0 0 0 90px;
     margin-bottom: 1px;
   }
   &__info {
-    margin: 0;
+    margin: 0 0 0 90px;
     color: $subTextColor;
     font-size: 14px;
+    //text overflow protection
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
     &:nth-child(3) {
       margin-bottom: 6px;
     }
   }
   &__link {
-    margin-top: 7px;
+    display: block;
+    margin: 7px 0 0 90px;
     color: $mainTextColor;
     font-size: 12px;
   }
@@ -121,6 +129,7 @@
   }
   &--titleAbove &__title {
     margin-bottom: 4px;
+    margin-left: 0;
   }
   &--titleAbove &__info {
     margin-top: 0;
