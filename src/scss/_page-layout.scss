@@ -20,17 +20,7 @@
   left: 0;
   right: 0;
 }
-.header {
-  box-sizing: border-box;
-  @include rowFlex;
 
-  width: 71%;
-  min-width: 970px;
-  max-height: 1440px;
-  height: 70px;
-  margin: auto;
-  padding: 0 15px;
-}
 .sidebar {
   display: flex;
   flex-flow: column nowrap;

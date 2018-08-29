@@ -61,7 +61,8 @@ class ServiceList extends React.Component {
         type: "error",
         title: this.state.error.message,
         text: this.state.error.description,
-        onClose: clearHeader
+        onClose: clearHeader,
+        confirmButtonColor: "#87b448"
       });
     }
   }
