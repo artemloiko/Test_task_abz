@@ -27,7 +27,7 @@ class ServiceList extends React.Component {
     const getOption = {
       method: "GET",
       headers: {
-        Authorization: "a9c521539b48f40732161c9b694176afb2e41db8"
+        Authorization: "a9c521539b48f40732161c9b694176afb2e41db"
       }
     };
 
@@ -61,7 +61,8 @@ class ServiceList extends React.Component {
         type: "error",
         title: this.state.error.message,
         text: this.state.error.description,
-        onClose: clearHeader
+        onClose: clearHeader,
+        confirmButtonColor: "#87b448"
       });
     }
   }

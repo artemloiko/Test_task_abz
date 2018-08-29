@@ -7,6 +7,12 @@
     position: relative;
     padding: 15px 0 18px 49px;
     color: #59606b;
+    &:hover {
+      color: $activeTextColor;
+      &::before {
+        filter: hue-rotate(250deg);
+      }
+    }
     //icon style
     &::before {
       content: "";
@@ -76,6 +82,9 @@
     }
     &__link {
       color: $mainTextColor;
+      &:hover {
+        color: $activeTextColor;
+      }
     }
   }
   &-content {
@@ -84,6 +93,9 @@
   &-signature {
     color: #d3d3d3;
     font-size: 11px;
+    &:hover {
+      color: $activeTextColor;
+    }
   }
 }
 
@@ -148,5 +160,11 @@
   }
   &__link {
     margin-right: 18px;
+    &:hover {
+      color: $activeTextColor;
+    }
+    &:visited {
+      color: darken($subTextColor, 30%);
+    }
   }
 }
