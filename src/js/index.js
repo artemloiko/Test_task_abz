@@ -1,15 +1,9 @@
-import hi from './module';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import style from "../scss/index.scss";
+import React from "react";
+import ReactDOM from "react-dom";
 
-const title = 'My Minimal React Webpack Babel Setup';
+import clampAll from "./clamping";
+import ServiceList from "./servises";
+clampAll();
 
-ReactDOM.render(
-  <div>
-    <h1>{title}</h1>
-  </div>,
-  document.getElementById('app')
-);
-console.log('Hell0, world!');
-document.getElementById('second').innerHTML = 'kek';
-hi();
+ReactDOM.render(<ServiceList />, document.getElementById("services"));
