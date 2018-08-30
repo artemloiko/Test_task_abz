@@ -6,13 +6,26 @@ const autoprefixer = require("autoprefixer");
 
 module.exports = {
   mode: "development",
-  entry: [
-    "webpack/hot/dev-server",
-    "./src/js/index.js",
-    "./src/scss/index.scss"
-  ],
+  // entry: [
+  //   "webpack/hot/dev-server",
+  //   "./src/js/index.js",
+  //   "./src/js/signup.index.js",
+  //   "./src/scss/index.scss"
+  // ],
+  entry: {
+    main: [
+      "webpack/hot/dev-server",
+      "./src/js/index.js",
+      "./src/scss/index.scss"
+    ],
+    signup: [
+      "webpack/hot/dev-server",
+      "./src/js/signup.index.js",
+      "./src/scss/signup.index.scss"
+    ]
+  },
   output: {
-    filename: "bundle.js",
+    filename: "[name].js",
     path: path.resolve(__dirname, "dist")
   },
   devtool: "source-map",
