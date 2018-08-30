@@ -1,3 +1,184 @@
 @import "./normalize.css";
 @import "variables";
 @import "base";
+
+/**
+* Backgrounds for sections
+*
+*/
+.intro-bg {
+  height: 510px;
+  background: #1c2534 url(../img/bg_img.png) center/cover no-repeat;
+}
+.form-bg {
+  background: url(../img/bg_img2.png) center/cover no-repeat;
+}
+/**
+* Common button style
+*
+*/
+.btn {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 20px;
+  border-radius: 5px;
+  background-color: #87b448;
+  color: #fff;
+  font-size: 14px;
+  border: none;
+}
+/**
+* header layout
+*
+*/
+.header {
+  @include rowFlex;
+  justify-content: space-between;
+  padding: 40px 40px 0 50px;
+}
+
+/**
+* intro styles
+*
+*/
+.intro {
+  max-width: 500px;
+  margin: auto;
+  margin-top: 98px;
+  color: #f3f4f6;
+  text-align: center;
+  &__title {
+    font-size: 48px;
+    font-weight: 300;
+    margin: 0;
+    margin-bottom: 7px;
+  }
+  &__preface {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 30px;
+  }
+}
+
+/**
+* Sign Up form styles
+*
+*/
+.signUp {
+  position: relative;
+  top: -100px;
+  width: 55%;
+  min-width: 500px;
+  max-width: 760px;
+  margin: auto;
+
+  &__warning {
+    width: 100%;
+    color: #c1c1c1;
+    font-size: 14px;
+  }
+  &__wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    background: #fff;
+    border: 1px solid #e0e2e6;
+    border-radius: 5px;
+    padding: 20px;
+  }
+  &__input-block {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    &--short {
+      width: 48%;
+      margin-right: 4%;
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+    }
+  }
+  &__label {
+    color: $mainTextColor;
+    line-height: 42px;
+  }
+  &__input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #c8cdd5;
+    background-color: #ffffff;
+    &::placeholder {
+      color: $subTextColor;
+    }
+  }
+  &__textarea {
+    max-width: 100%;
+    min-height: 152px;
+  }
+  &__submit {
+    display: block;
+    width: 100%;
+    height: 52px;
+    margin-top: 20px;
+    line-height: 52px;
+    font-size: 16px;
+  }
+}
+
+/**
+* section about styles
+*
+*/
+.about {
+  background: #fff;
+  padding: 100px 80px;
+  &__title {
+    margin: 0 0 50px;
+    color: $mainTextColor;
+    font-size: 30px;
+    font-weight: 300;
+    text-align: center;
+  }
+  &__text {
+    column-count: 2;
+    column-gap: 80px;
+    margin: 0;
+    color: $subTextColor;
+    font-size: 16px;
+    font-weight: 300;
+    & p {
+      line-height: 24px;
+      margin: 0;
+    }
+  }
+}
+
+/**
+* footer styles
+*
+*/
+.footer {
+  display: flex;
+  @include rowFlex;
+  height: 74px;
+  border-top: 1px solid #e0e2e6;
+  padding: 0 80px;
+  background: #fff;
+  &__link {
+    font-size: 12px;
+    color: #b7bfcd;
+    margin-right: 20px;
+    &--copy {
+      margin-right: auto;
+    }
+    &:hover {
+      color: $activeTextColor;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
