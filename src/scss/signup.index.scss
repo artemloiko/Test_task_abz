@@ -11,7 +11,8 @@
   background: #1c2534 url(../img/bg_img.png) center/cover no-repeat;
 }
 .form-bg {
-  background: url(../img/bg_img2.png) center/cover no-repeat;
+  min-height: 816px;
+  background: url(../img/bg_img2--long.png) top/100% repeat-y;
 }
 /**
 * Common button style
@@ -88,6 +89,7 @@
     padding: 20px;
   }
   &__input-block {
+    position: relative;
     display: flex;
     flex-flow: column nowrap;
     width: 100%;
@@ -97,6 +99,12 @@
       &:nth-child(2n) {
         margin-right: 0;
       }
+    }
+    &--tarea::before {
+      content: attr(data-charCount);
+      position: absolute;
+      right: 2px;
+      top: 5px;
     }
   }
   &__label {
@@ -116,7 +124,9 @@
   }
   &__textarea {
     max-width: 100%;
+    min-width: 100%;
     min-height: 152px;
+    max-height: 500px;
   }
   &__submit {
     display: block;
