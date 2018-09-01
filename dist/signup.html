@@ -35,39 +35,43 @@
     </div>
   </div>
   <div class="form-bg">
-    <form action="" class="signUp">
-      <div class="signUp__wrapper">
-        <span class="signUp__warning">Fields marked “*” are required</span>
-        <label class="signUp__label signUp__input-block">
+    <form class="form" >
+      <div class="form__wrapper">
+        <span class="form__warning">Fields marked “*” are required</span>
+        <label class="form__label form__input-block">
           Enquiry Type *
-          <select name="" id="" class="signUp__select">
-            <option value="kke">Type1</option>
-            <option value="kked">Type2</option>
-          </select>
-          <input type="text" class="signUp__input" placeholder="Other">
+          <div class="custom-select form__select" data-placeholder="Select type">
+            <select name="" id="select">
+              <option value="type1">Type1</option>
+              <option value="type2">Type2</option>
+              <option value="type3">Type3</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <input type="text" class="form__input" placeholder="Other" id="select-other" hidden>
         </label>
-        <label class="signUp__label signUp__input-block signUp__input-block--short">
+        <label class="form__label form__input-block form__input-block--short">
           Name *
-          <input type="text" class="signUp__input" placeholder="Dentist">
+          <input type="text" class="form__input" placeholder="Dentist">
         </label>
-        <label class="signUp__label signUp__input-block signUp__input-block--short">
+        <label class="form__label form__input-block form__input-block--short">
           Email *
-          <input type="text" class="signUp__input signUp__input--short" placeholder="rachelm@gmail.com">
+          <input type="text" class="form__input form__input--short" placeholder="rachelm@gmail.com">
         </label>
-        <label class="signUp__label signUp__input-block">
+        <label class="form__label form__input-block">
           Subject *
-          <input type="text" class="signUp__input signUp__input--short">
+          <input type="text" class="form__input form__input--short">
         </label>
-        <label class="signUp__label signUp__input-block signUp__input-block--tarea" data-charCount="(0/1000)">
+        <label class="form__label form__input-block form__input-block--tarea" data-charCount="(0/1000)">
           Description *
-          <textarea name="" class="signUp__input signUp__textarea" maxlength="1000"></textarea>
+          <textarea name="" class="form__input form__textarea" maxlength="1000"></textarea>
         </label>
-        <label class="signUp__label signUp__input-block">
+        <label class="form__label form__input-block">
             add photo
-            <input type="file" class="signUp__input signUp__input--short">
+            <input type="file" class="form__input form__input--short">
         </label>
       </div>
-      <input type="submit" value="Submit" class="btn signUp__submit">
+      <input type="submit" value="Submit" class="btn form__submit">
     </form>
   </div>
   <div class="about">

@@ -1,6 +1,7 @@
 @import "./normalize.css";
 @import "variables";
 @import "base";
+@import "./service_components/custom_select";
 
 /**
 * Backgrounds for sections
@@ -67,7 +68,7 @@
 * Sign Up form styles
 *
 */
-.signUp {
+.form {
   position: relative;
   top: -100px;
   width: 55%;
@@ -114,13 +115,18 @@
   &__input {
     box-sizing: border-box;
     width: 100%;
-    padding: 20px;
+    height: 52px;
+    line-height: 52px;
+    padding: 0 20px;
     border-radius: 5px;
     border: 1px solid #c8cdd5;
     background-color: #ffffff;
     &::placeholder {
       color: $subTextColor;
     }
+  }
+  &__select {
+    margin-bottom: 20px;
   }
   &__textarea {
     max-width: 100%;
