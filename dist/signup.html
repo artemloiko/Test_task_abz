@@ -48,7 +48,7 @@
               <option value="other">Other</option>
             </select>
           </div>
-          <input type="text" class="form__input" placeholder="Other" id="select-other" hidden>
+          <input type="text" class="form__input form__other" placeholder="Other" id="select-other" hidden>
         </label>
         <label class="form__label form__input-block form__input-block--short">
           Name *
@@ -66,9 +66,10 @@
           Description *
           <textarea name="" class="form__input form__textarea" maxlength="1000"></textarea>
         </label>
-        <label class="form__label form__input-block">
-            add photo
-            <input type="file" class="form__input form__input--short">
+        <label class="form__file-wrapper">
+            <h4 class="form__file-wrapper__title">Add photo</h4>
+            <p class="form__file-wrapper__text">Minimum size of 300x300 jpeg ipg png 5 MB</p>
+            <input type="file" class="form__file">
         </label>
       </div>
       <input type="submit" value="Submit" class="btn form__submit">

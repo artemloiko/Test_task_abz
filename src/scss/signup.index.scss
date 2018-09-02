@@ -125,14 +125,44 @@
       color: $subTextColor;
     }
   }
-  &__select {
-    margin-bottom: 20px;
+  &__other {
+    margin-top: 20px;
   }
   &__textarea {
     max-width: 100%;
     min-width: 100%;
     min-height: 152px;
     max-height: 500px;
+    line-height: normal;
+    padding: 20px;
+  }
+  &__file-wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 130px;
+    height: 130px;
+    margin-top: 20px;
+    padding: 0 18px;
+    border-radius: 4px;
+    border: 1px solid #c8cdd5;
+    background-color: #f7f7f7;
+    cursor: pointer;
+    & input[type="file"] {
+      display: none;
+    }
+    &__title {
+      font-size: 16px;
+      color: $subTextColor;
+      margin: 0 0 7px;
+    }
+    &__text {
+      font-size: 12px;
+      color: #c2c2c4;
+      text-align: center;
+    }
   }
   &__submit {
     display: block;
