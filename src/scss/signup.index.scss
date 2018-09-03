@@ -89,11 +89,35 @@
     border-radius: 5px;
     padding: 20px;
   }
+  &__input-title {
+    margin: 20px 0 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: $mainTextColor;
+  }
   &__input-block {
     position: relative;
     display: flex;
     flex-flow: column nowrap;
     width: 100%;
+    &--error {
+      &::after {
+        position: absolute;
+        left: 0px;
+        bottom: -18px;
+        content: attr(data-error);
+        line-height: normal;
+        padding: 2px 0 0 20px;
+        font-size: 12px;
+        color: #ca4c55;
+      }
+      & input {
+        border-color: #ca4c55;
+        &:focus {
+          outline-color: red;
+        }
+      }
+    }
     &--short {
       width: 48%;
       margin-right: 4%;
@@ -107,10 +131,6 @@
       right: 2px;
       top: 5px;
     }
-  }
-  &__label {
-    color: $mainTextColor;
-    line-height: 42px;
   }
   &__input {
     box-sizing: border-box;

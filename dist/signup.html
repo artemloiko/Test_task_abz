@@ -39,7 +39,7 @@
       <div class="form__wrapper">
         <span class="form__warning">Fields marked “*” are required</span>
         <label class="form__label form__input-block">
-          Enquiry Type *
+          <h3 class="form__input-title">Enquiry Type *</h3>
           <div class="custom-select form__select" data-placeholder="Select type">
             <select name="" id="select">
               <option value="type1">Type1</option>
@@ -50,20 +50,20 @@
           </div>
           <input type="text" class="form__input form__other" placeholder="Other" id="select-other" hidden>
         </label>
-        <label class="form__label form__input-block form__input-block--short">
-          Name *
+        <label class="form__label form__input-block form__input-block--short form__input-block--error" data-error="Invalid name">
+          <h3 class="form__input-title">Name *</h3>
           <input type="text" class="form__input" placeholder="Dentist">
         </label>
         <label class="form__label form__input-block form__input-block--short">
-          Email *
+          <h3 class="form__input-title">Email *</h3>
           <input type="text" class="form__input form__input--short" placeholder="rachelm@gmail.com">
         </label>
         <label class="form__label form__input-block">
-          Subject *
+          <h3 class="form__input-title">Subject *</h3>
           <input type="text" class="form__input form__input--short">
         </label>
         <label class="form__label form__input-block form__input-block--tarea" data-charCount="(0/1000)">
-          Description *
+          <h3 class="form__input-title">Description *</h3>
           <textarea name="" class="form__input form__textarea" maxlength="1000"></textarea>
         </label>
         <label class="form__file-wrapper">
