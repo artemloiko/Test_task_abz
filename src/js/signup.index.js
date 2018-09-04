@@ -1,6 +1,35 @@
 console.log("Hello from signup.index.js");
 
-(function charCount() {
+document.forms[0].addEventListener("submit", function(e) {
+  // console.log(e);
+  e.preventDefault();
+});
+
+//img uploader
+(function() {
+  const inputFile = document.forms[0].elements["file_img"];
+  const uploadBlock = inputFile.parentNode;
+  inputFile.addEventListener("change", function() {
+    const file = this.files[0];
+    if (!file.type.match(/image\/\w*/)) {
+      //TODO: input error
+      alert("Image only please....");
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      //TODO: input error
+      alert("Big file");
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      uploadBlock.classList.add("form__file-wrapper--loaded");
+      uploadBlock.style.backgroundImage = `url(${e.target.result})`;
+    };
+    reader.readAsDataURL(file);
+  });
+})();
+// textarea charCount
+(function() {
   const tarea = document.querySelector(".form__textarea");
   const twrap = document.querySelector(".form__input-block--tarea");
   tarea.addEventListener("input", function() {
@@ -13,10 +42,6 @@ console.log("Hello from signup.index.js");
   });
 })();
 
-document.forms[0].addEventListener("submit", function(e) {
-  console.log(e);
-  e.preventDefault();
-});
 // custom select
 (function() {
   const customSelect = document.querySelector(".custom-select");

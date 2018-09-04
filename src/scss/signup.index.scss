@@ -183,6 +183,15 @@
       color: #c2c2c4;
       text-align: center;
     }
+    &--loaded {
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    &--loaded &__title,
+    &--loaded &__text {
+      color: transparent;
+    }
   }
   &__submit {
     display: block;
