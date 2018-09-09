@@ -2,34 +2,45 @@ export function customSelect(nativeSelect) {
   //select props
   let isOpen = false;
   let index = -1; // index of current option
-  let options = [];
+  let optHeight; // height of 1 custom option
 
+  //select elements
   const select = document.createElement("div");
-  const selectValueElem = document.createElement("div");
+  const selectValue = document.createElement("div");
   const optList = document.createElement("UL");
+  let options = []; // array of custom select options
+
   //creating custom select element
-  select.className = "select form__select";
-
-  select.tabIndex = 0;
-  selectValueElem.dataset.placeholder = nativeSelect.dataset.placeholder;
-  selectValueElem.className = "select-value select-value--placeholder";
-
+  //hide native
   nativeSelect.tabIndex = -1;
   nativeSelect.hidden = true;
+  //select wrapper
+  select.className = "select form__select";
+  select.tabIndex = 0;
+  select.setAttribute("role", "listbox");
+  //block with selected element
+  selectValue.dataset.placeholder = nativeSelect.dataset.placeholder;
+  selectValue.className = "select-value select-value--placeholder";
+
   optList.className = "select-optList";
+  optList.setAttribute("role", "presentation");
+
+  //creating options and fiiling optList
   for (let i = 0; i < nativeSelect.options.length; i++) {
     const option = document.createElement("LI");
-    option.innerHTML = nativeSelect.options[i].innerHTML;
     option.classList.add("select-option");
+    option.innerHTML = nativeSelect.options[i].innerHTML;
     option.dataset.index = i;
+    option.setAttribute("role", "option");
+
+    options.push(option);
     optList.appendChild(option);
   }
-
-  select.appendChild(selectValueElem);
+  //Added custom select in DOM
+  select.appendChild(selectValue);
   select.appendChild(optList);
   nativeSelect.insertAdjacentElement("afterend", select);
-
-  options = [...optList.children];
+  optHeight = options[0].offsetHeight;
 
   function showOptList(e) {
     if (isOpen) return;
@@ -43,13 +54,6 @@ export function customSelect(nativeSelect) {
     isOpen = false;
     select.classList.remove("select--active");
   }
-  function toggleOptList() {
-    isOpen = !isOpen;
-    select.classList.toggle("select--active");
-  }
-
-  //optHeight is outside for computed one time
-  const optHeight = options[0].offsetHeight;
   function changeOption(keyCode, curOption) {
     if (index === -1) {
       if (!keyCode) {
@@ -84,21 +88,21 @@ export function customSelect(nativeSelect) {
     }
   }
   function updateValue() {
+    selectValue.innerHTML = options[index].innerHTML;
     nativeSelect.selectedIndex = index;
-    selectValueElem.innerHTML = options[index].innerHTML;
+    nativeSelect.dispatchEvent(new Event("change"));
   }
-
   function hidePlaceholder(e) {
     if (e.keyCode === 13 || (e.keyCode === 7 && index >= 0)) {
-      selectValueElem.classList.remove("select-value--placeholder");
+      selectValue.classList.remove("select-value--placeholder");
       select.removeEventListener("keydown", hidePlaceholder);
-    } else if (e.type === "click" && index >= 0) {
-      selectValueElem.classList.remove("select-value--placeholder");
+    } else if (e.type === "click" && e.target.dataset.index && index >= 0) {
+      selectValue.classList.remove("select-value--placeholder");
       select.removeEventListener("click", hidePlaceholder);
     }
   }
   // Event Listeners mouse
-  selectValueElem.addEventListener("click", showOptList);
+  selectValue.addEventListener("click", showOptList);
   select.addEventListener("click", function(e) {
     if (e.target.dataset.index) {
       updateValue();
@@ -107,6 +111,7 @@ export function customSelect(nativeSelect) {
       hideOptList();
     }
   });
+  document.addEventListener("click", hideOptList);
 
   select.addEventListener("mouseover", function(e) {
     if (isOpen && e.target.dataset.index) {
@@ -128,87 +133,11 @@ export function customSelect(nativeSelect) {
       hideOptList();
     }
   });
+  //hide placeholder after selected element
   select.addEventListener("keydown", hidePlaceholder);
   select.addEventListener("click", hidePlaceholder);
-  document.addEventListener("click", hideOptList);
+
   return {
     select
   };
-}
-
-/*
-*
-* CUSTOM
-*/
-// custom select
-function lol() {
-  const customSelect = document.querySelector(".custom-select");
-  const select = customSelect.querySelector("select");
-
-  // create a new DIV that will act as the selected item:
-  const divSelected = document.createElement("DIV");
-
-  divSelected.classList.add("select-selected", "select-placeholder");
-  divSelected.setAttribute(
-    "data-placeholder",
-    customSelect.dataset.placeholder
-  );
-
-  customSelect.appendChild(divSelected);
-
-  //create a new DIV that will contain the option list
-  const divOptions = document.createElement("DIV");
-  divOptions.classList.add("select-options", "select-hide");
-  /*for each option in the original select element,
-    create a new DIV that will act as an option item:*/
-  for (let i = 0; i < select.options.length; i++) {
-    const option = document.createElement("DIV");
-
-    option.innerHTML = select.options[i].innerHTML;
-    option.classList.add("select-option");
-    option.dataset.index = i;
-
-    divOptions.appendChild(option);
-  }
-  customSelect.appendChild(divOptions);
-
-  //   Event handlers
-  //show select-options
-  divSelected.addEventListener("click", function(e) {
-    this.classList.toggle("select-selected--active");
-    divOptions.classList.toggle("select-options--active");
-    e.preventDefault();
-    e.stopPropagation();
-  });
-  /*when an optiond(div) is clicked, update the original select box,
-        and the selected item:*/
-  divOptions.addEventListener("click", function(e) {
-    divSelected.classList.remove("select-placeholder");
-    divSelected.innerHTML = e.target.innerHTML;
-    divSelected.classList.remove("select-selected--active");
-
-    this.classList.remove("select-options--active");
-
-    select.selectedIndex = e.target.dataset.index;
-
-    const selectOther = document.getElementById("select-other");
-    if (select.selectedIndex === select.options.length - 1) {
-      selectOther.hidden = false;
-    } else {
-      selectOther.hidden = true;
-    }
-  });
-  /*if the user clicks anywhere outside the select box,
-  then close all select boxes:*/
-  document.body.addEventListener("click", function(e) {
-    if (divSelected.classList.contains("select-selected--active")) {
-      divSelected.classList.remove("select-selected--active");
-      divOptions.classList.remove("select-options--active");
-    }
-  });
-
-  function addOption() {
-    //TODO: add option to original select and custom
-    //???? delete original select, add options only in custom
-  }
 }

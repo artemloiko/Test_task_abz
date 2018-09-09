@@ -39,18 +39,31 @@ const data = [
     name: "Other"
   }
 ];
-const nativeSelect = document.getElementById("select");
-data.forEach(item => {
-  const option = document.createElement("option");
-  option.value = item.id;
-  option.innerHTML = item.name;
-  nativeSelect.appendChild(option);
-});
+const checkForm = (function() {
+  //Filling select with received data
+  const nativeSelect = document.getElementById("select");
+  data.forEach(item => {
+    const option = document.createElement("option");
+    option.value = item.id;
+    option.innerHTML = item.name;
+    nativeSelect.appendChild(option);
+  });
+  console.log("it is checking form");
+  const other = document.getElementById("select-other");
+  nativeSelect.addEventListener("change", function(e) {
+    if (this.selectedIndex === this.options.length - 1) {
+      other.hidden = false;
+    } else {
+      other.hidden = true;
+    }
+  });
 
-const select = customSelect(nativeSelect);
-document.forms[0].addEventListener("submit", function(e) {
-  e.preventDefault();
-});
+  document.forms[0].addEventListener("submit", function(e) {
+    e.preventDefault();
+  });
+
+  const select = customSelect(nativeSelect);
+})();
 
 //img uploader
 
