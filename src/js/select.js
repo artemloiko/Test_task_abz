@@ -1,21 +1,21 @@
 export function customSelect(nativeSelect) {
   //select props
   let isOpen = false;
-  let index = 0; // index of current option
-  const select = document.createElement("div");
+  let index = -1; // index of current option
   let options = [];
 
+  const select = document.createElement("div");
+  const selectValueElem = document.createElement("div");
+  const optList = document.createElement("UL");
   //creating custom select element
   select.className = "select form__select";
 
   select.tabIndex = 0;
-  const selectValueElem = document.createElement("div");
   selectValueElem.dataset.placeholder = nativeSelect.dataset.placeholder;
-  selectValueElem.className = "select-value select-placeholder";
+  selectValueElem.className = "select-value select-value--placeholder";
 
   nativeSelect.tabIndex = -1;
   nativeSelect.hidden = true;
-  const optList = document.createElement("UL");
   optList.className = "select-optList";
   for (let i = 0; i < nativeSelect.options.length; i++) {
     const option = document.createElement("LI");
@@ -30,10 +30,13 @@ export function customSelect(nativeSelect) {
   nativeSelect.insertAdjacentElement("afterend", select);
 
   options = [...optList.children];
-  function showOptList() {
+
+  function showOptList(e) {
     if (isOpen) return;
     isOpen = true;
     select.classList.add("select--active");
+    e.preventDefault();
+    e.stopPropagation();
   }
   function hideOptList() {
     if (!isOpen) return;
@@ -41,31 +44,93 @@ export function customSelect(nativeSelect) {
     select.classList.remove("select--active");
   }
   function toggleOptList() {
+    isOpen = !isOpen;
     select.classList.toggle("select--active");
   }
-  function highlightOption() {}
-  function updateValue() {}
 
-  // Event Listeners
-  select.addEventListener("click", toggleOptList);
-  select.addEventListener("keydown", function(event) {
-    console.log(event);
-    if ((!isOpen && event.keyCode === 40) || event.keyCode === 38) {
-      select.classList.add("select--active");
-      e.preventDefault();
-    } else {
-      select.classList.remove("select--active");
-    }
-  });
-  select.addEventListener("keyup", function(event) {
-    if (event.keyCode === 40 && index < length - 1) {
+  //optHeight is outside for computed one time
+  const optHeight = options[0].offsetHeight;
+  function changeOption(keyCode, curOption) {
+    if (index === -1) {
+      if (!keyCode) {
+        index = curOption.dataset.index;
+        options[index].classList.toggle("current");
+        return;
+      }
+      options[0].classList.toggle("current");
       index++;
+      return;
     }
-    if (event.keyCode === 38 && index > 0) {
+    if (!keyCode) {
+      options[index].classList.toggle("current");
+      index = curOption.dataset.index;
+      options[index].classList.toggle("current");
+      return;
+    }
+    if (keyCode === 40 && index < options.length - 1) {
+      options[index].classList.toggle("current");
+      index++;
+      options[index].classList.toggle("current");
+    }
+    if (keyCode === 38 && index > 0) {
+      options[index].classList.toggle("current");
       index--;
+      options[index].classList.toggle("current");
+    }
+    if (options[index].offsetTop + optHeight > optList.offsetHeight) {
+      optList.scrollTop += optHeight;
+    } else if (options[index].offsetTop < optList.scrollTop) {
+      optList.scrollTop -= optHeight;
+    }
+  }
+  function updateValue() {
+    nativeSelect.selectedIndex = index;
+    selectValueElem.innerHTML = options[index].innerHTML;
+  }
+
+  function hidePlaceholder(e) {
+    if (e.keyCode === 13 || (e.keyCode === 7 && index >= 0)) {
+      selectValueElem.classList.remove("select-value--placeholder");
+      select.removeEventListener("keydown", hidePlaceholder);
+    } else if (e.type === "click" && index >= 0) {
+      selectValueElem.classList.remove("select-value--placeholder");
+      select.removeEventListener("click", hidePlaceholder);
+    }
+  }
+  // Event Listeners mouse
+  selectValueElem.addEventListener("click", showOptList);
+  select.addEventListener("click", function(e) {
+    if (e.target.dataset.index) {
+      updateValue();
+      hideOptList();
+    } else {
+      hideOptList();
     }
   });
 
+  select.addEventListener("mouseover", function(e) {
+    if (isOpen && e.target.dataset.index) {
+      changeOption(0, e.target);
+    }
+  });
+
+  // Event Listeners keyboard
+  select.addEventListener("keydown", function(e) {
+    if (!isOpen && (e.keyCode === 40 || e.keyCode === 38)) {
+      showOptList(e);
+    } else if (isOpen && (e.keyCode === 40 || e.keyCode === 38)) {
+      changeOption(e.keyCode);
+      e.preventDefault();
+    } else if (isOpen && (e.keyCode === 13 || e.keyCode === 9)) {
+      updateValue();
+      hideOptList();
+    } else if (e.keyCode === 27) {
+      hideOptList();
+    }
+  });
+  select.addEventListener("keydown", hidePlaceholder);
+  select.addEventListener("click", hidePlaceholder);
+  document.addEventListener("click", hideOptList);
   return {
     select
   };
