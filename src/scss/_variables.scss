@@ -3,7 +3,13 @@
   flex-flow: row nowrap;
   align-items: center;
 }
+@mixin blueFocus {
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 5px #9ecaed;
+}
 $font-stack: "ProximaNova", "Helvetica Neue", "Arial", sans-serif;
 $mainTextColor: #1c2534;
 $subTextColor: #7c8695;
 $activeTextColor: #71973c;
+$errorColor: #ca4c55;
