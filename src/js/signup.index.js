@@ -82,6 +82,17 @@ function deleteInputErr(input) {
 }
 //form validations
 //TODO: and sending...
+function sendData(formData) {
+  console.dir(formData.get("user_name"));
+  const url = "http://504080.com/api/v1/support";
+  fetch(url, {
+    method: "POST",
+    body: formData
+  })
+    .then(response => response.json())
+    .then(response => console.log("Success:", response))
+    .catch(error => console.error("Error:", error));
+}
 (function() {
   const form = document.forms[0];
   //forms elements
@@ -93,6 +104,8 @@ function deleteInputErr(input) {
   const description = form.elements["description"];
   const file = form.elements["file"];
 
+  const emailRegExp = /^[\w.!#$%&'*+/=?^`{|}~-]+@[\w-]+\.[a-zA-Z0-9-]+$/;
+
   // This field is required on blur
   const formRequiredElems = [other, name, email, subject, description];
 
@@ -100,7 +113,6 @@ function deleteInputErr(input) {
     elem.addEventListener("blur", function() {
       checkValueMiss(elem);
     });
-
     elem.addEventListener("input", function() {
       if (!this.validity.valueMissing) {
         deleteInputErr(this);
@@ -110,7 +122,7 @@ function deleteInputErr(input) {
   // Email check
   email.addEventListener("blur", function() {
     deleteInputErr(this);
-    if (!this.validity.valid) {
+    if (!emailRegExp.test(this.value)) {
       setInputErr(this, "Invalid email");
     }
   });
@@ -119,15 +131,24 @@ function deleteInputErr(input) {
   document.forms[0].addEventListener("submit", function(e) {
     formRequiredElems.forEach(elem => checkValueMiss(elem));
 
-    if (!email.validity.valid) {
+    if (!emailRegExp.test(email.value)) {
       setInputErr(email, "Invalid email");
+      e.preventDefault();
+      return;
     }
 
     if (select.dataset.placeholder) {
       select.nextElementSibling.classList.add("select--error");
       setInputErr(select, "This field is required");
+      e.preventDefault();
+      return;
     }
 
+    let formData = new FormData(form);
+    if (other.hidden) {
+      formData.set("enquiry_type", select.options[select.selectedIndex].innerHTML);
+    }
+    sendData(formData);
     e.preventDefault();
   });
 

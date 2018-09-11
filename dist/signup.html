@@ -35,41 +35,34 @@
     </div>
   </div>
   <div class="form-bg">
-    <form class="form" >
+    <form class="form" novalidate>
       <div class="form__wrapper">
         <span class="form__warning">Fields marked “*” are required</span>
         <label class="form__label form__input-block">
           <h3 class="form__input-title">Enquiry Type *</h3>
-          <div class="custom-select form__select" data-placeholder="Select type">
-            <select name="" id="select">
-              <option value="type1">Type1</option>
-              <option value="type2">Type2</option>
-              <option value="type3">Type3</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <input type="text" class="form__input form__other" placeholder="Other" id="select-other" hidden>
+          <select name="department" id="select" data-placeholder="Select type" value="" required></select>
+          <input name="enquiry_type" type="text" class="form__input form__other" placeholder="Other" id="select-other" hidden>
         </label>
-        <label class="form__label form__input-block form__input-block--short form__input-block--error" data-error="Invalid name">
+        <label class="form__label form__input-block form__input-block--short">
           <h3 class="form__input-title">Name *</h3>
-          <input type="text" class="form__input" placeholder="Dentist">
+          <input name="user_name" type="text" class="form__input" placeholder="Dentist" required>
         </label>
         <label class="form__label form__input-block form__input-block--short">
           <h3 class="form__input-title">Email *</h3>
-          <input type="text" class="form__input form__input--short" placeholder="rachelm@gmail.com">
+          <input name="email" type="text" class="form__input form__input--short" placeholder="rachelm@gmail.com" required>
         </label>
         <label class="form__label form__input-block">
           <h3 class="form__input-title">Subject *</h3>
-          <input type="text" class="form__input form__input--short">
+          <input name="subject" type="text" class="form__input" required>
         </label>
         <label class="form__label form__input-block form__input-block--tarea" data-charCount="(0/1000)">
           <h3 class="form__input-title">Description *</h3>
-          <textarea name="" class="form__input form__textarea" maxlength="1000"></textarea>
+          <textarea name="description" class="form__input form__textarea" maxlength="1000"  required></textarea>
         </label>
-        <label class="form__file-wrapper">
+        <label class="form__file-wrapper" tabindex="0">
             <h4 class="form__file-wrapper__title">Add photo</h4>
             <p class="form__file-wrapper__text">Minimum size of 300x300 jpeg ipg png 5 MB</p>
-            <input type="file" class="form__file" name="file_img">
+            <input name="file" type="file" class="form__file" hidden>
         </label>
       </div>
       <input type="submit" value="Submit" class="btn form__submit">
