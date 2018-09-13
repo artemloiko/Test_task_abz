@@ -137,7 +137,5 @@ export function customSelect(nativeSelect) {
   select.addEventListener("keydown", hidePlaceholder);
   select.addEventListener("click", hidePlaceholder);
 
-  return {
-    select
-  };
+  return select;
 }
