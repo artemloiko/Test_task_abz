@@ -1,4 +1,4 @@
-import { deleteInputErr, setInputErr } from "./formCheck";
+import { deleteInputErr, setInputErr } from "../formCheck";
 
 //img uploader with error handling
 (function() {
