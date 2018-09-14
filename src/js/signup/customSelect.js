@@ -81,17 +81,20 @@ export function customSelect(nativeSelect) {
       index--;
       options[index].classList.toggle("current");
     }
+    //if options isn't placed in block to scroll
     if (options[index].offsetTop + optHeight > optList.offsetHeight) {
       optList.scrollTop += optHeight;
     } else if (options[index].offsetTop < optList.scrollTop) {
       optList.scrollTop -= optHeight;
     }
   }
+  //update selectValue and native select
   function updateValue() {
     selectValue.innerHTML = options[index].innerHTML;
     nativeSelect.selectedIndex = index;
     nativeSelect.dispatchEvent(new Event("change"));
   }
+  //will work once, after first option selection
   function hidePlaceholder(e) {
     if (e.keyCode === 13 || (e.keyCode === 7 && index >= 0)) {
       selectValue.classList.remove("select-value--placeholder");
