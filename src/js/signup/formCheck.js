@@ -37,7 +37,7 @@ function checkValueMiss(elem) {
     setInputErr(elem, "This field is required");
   }
 }
-//TODO add description
+
 export function setInputErr(input, errText) {
   const inputWrapper = input.closest("label");
   if (inputWrapper) {
@@ -46,7 +46,6 @@ export function setInputErr(input, errText) {
   }
 }
 
-//TODO add description
 export function deleteInputErr(input) {
   const inputWrapper = input.closest("label");
   if (inputWrapper) inputWrapper.classList.remove("form__input-block--error");
@@ -58,9 +57,10 @@ export function checkForm() {
   const email = document.forms[0].elements["email"];
 
   const formRequiredElems = [...document.forms[0].elements].filter(elem => elem.required);
-  console.log(formRequiredElems);
+  //add errors if they are there
   formRequiredElems.forEach(elem => checkValueMiss(elem));
 
+  //check every required input
   let formIsCorrect = formRequiredElems.every(elem => !elem.validity.valueMissing);
   if (!email.validity.valid) {
     setInputErr(email, "Invalid email");
