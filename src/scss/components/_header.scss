@@ -11,7 +11,7 @@
   width: 71%;
   min-width: 970px;
   max-height: 1440px;
-  height: 70px;
+  height: 68px;
   margin: auto;
   padding: 0 15px;
 }
@@ -30,7 +30,7 @@
     flex-grow: 1;
     border: none;
     background-color: transparent;
-    padding-left: 4px;
+    padding: 0 10px 0 4px;
     font-size: 15px;
     color: #fff;
     &::placeholder {
@@ -55,7 +55,7 @@
 }
 .header-nav {
   @include rowFlex;
-  margin-right: 30px;
+  margin-right: 31px;
   align-items: center;
   &__link {
     display: block;
@@ -63,11 +63,6 @@
     height: 24px;
     margin-right: 20px;
     // for pixel perfect only
-    &:first-child {
-      line-height: 39px;
-      height: 22px;
-      margin-right: 22px;
-    }
     // for pixel perfect only
     & img {
       height: 100%;
@@ -80,12 +75,13 @@
 .profile {
   @include rowFlex;
   align-items: center;
+  //it might be prettier with flex-basis width like sidebar
+  flex-basis: 212px;
   &__img {
     width: 32px;
-    margin-right: 11px;
+    margin-right: 10px;
   }
   &__fullname {
     color: #fefefe;
-    margin-right: 11px;
   }
 }
