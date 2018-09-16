@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import clampAll from "./clamping";
-import ServiceList from "./components/ServiceList";
+import ServiceList from "./components/Services";
 clampAll();
 
 ReactDOM.render(<ServiceList />, document.getElementById("services"));

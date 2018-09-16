@@ -1,10 +1,10 @@
 import swal from "sweetalert2";
 import style from "../scss/signup.index.scss";
-import { overlayLoader } from "./signup/overlayLoader";
-import { deleteInputErr, setInputErr, checkForm } from "./signup/formCheck";
-import "./signup/IIFE/uploader";
-import "./signup/IIFE/textarea";
-import "./signup/IIFE/select";
+import { overlayLoader } from "./signup_components/overlayLoader";
+import { deleteInputErr, setInputErr, checkForm } from "./signup_components/formCheck";
+import "./signup_components/IIFE/uploader";
+import "./signup_components/IIFE/textarea";
+import "./signup_components/IIFE/select";
 //Sending data via POST
 function sendingData(formData) {
   const loader = overlayLoader(document.querySelector(".loader"));
