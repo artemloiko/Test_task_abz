@@ -1,0 +1,50 @@
+.logo {
+  margin-bottom: 2px;
+}
+.search__button {
+  margin-left: 1px;
+}
+
+.header-nav__link:first-child {
+  line-height: 37px;
+  height: 22px;
+  margin-right: 22px;
+}
+.profile__img {
+  margin-left: -1px;
+  margin-right: 11px;
+}
+.sidebar-block--advertisement .sidebar-block-header {
+  padding-left: 2px;
+  margin-bottom: 1px;
+}
+.sidebar-block-signature {
+  margin-top: 1px;
+}
+.sidebar-block {
+  &--people {
+    .sidebar-block-content {
+      margin: -3px 0 0 -1px;
+    }
+    &::after {
+      margin-top: 25px;
+    }
+  }
+
+  &--product {
+    & .sidebar-block-content {
+      margin: -3px 0 0 -1px;
+    }
+    & .proposal-card__title {
+      height: 11px;
+      margin-bottom: 10px;
+    }
+    & .proposal-card:nth-last-child(2) {
+      margin-bottom: 18px;
+    }
+  }
+}
+
+.main-content-header__button {
+  margin-right: 2px;
+}
