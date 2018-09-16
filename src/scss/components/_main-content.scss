@@ -21,7 +21,11 @@
   }
 }
 .service-directory {
+  position: relative;
   display: grid;
+  box-sizing: border-box;
+  min-height: 176px;
+
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   grid-column-gap: 17px;
   margin-top: 18px;
@@ -54,6 +58,7 @@
     color: #71973c;
   }
 }
+
 .error {
   grid-column: 1/4;
   & h3 {
@@ -61,8 +66,17 @@
     margin: 0;
   }
 }
+
 .notFound {
   margin: 0;
   grid-column: span 2;
   font-size: 14px;
+}
+
+.services-loader {
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
