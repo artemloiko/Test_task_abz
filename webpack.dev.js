@@ -1,28 +1,10 @@
 const path = require("path");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const autoprefixer = require("autoprefixer");
-// const webpack = require('webpack');
 
 module.exports = {
   mode: "development",
-  // entry: [
-  //   "webpack/hot/dev-server",
-  //   "./src/js/index.js",
-  //   "./src/js/signup.index.js",
-  //   "./src/scss/index.scss"
-  // ],
   entry: {
-    main: [
-      "webpack/hot/dev-server",
-      "./src/js/index.js",
-      "./src/scss/index.scss"
-    ],
-    signup: [
-      "webpack/hot/dev-server",
-      "./src/js/signup.index.js",
-      "./src/scss/signup.index.scss"
-    ]
+    main: ["webpack/hot/dev-server", "./src/js/index.js", "./src/scss/index.scss"],
+    signup: ["webpack/hot/dev-server", "./src/js/signup.index.js", "./src/scss/signup.index.scss"]
   },
   output: {
     filename: "[name].js",
@@ -54,15 +36,7 @@ module.exports = {
       {
         test: /\.s?css$/,
         use: ["style-loader", "css-loader", "sass-loader"]
-        // , "resolve-url-loader"
       }
     ]
-  },
-
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css"
-    })
-  ]
+  }
 };

@@ -4,10 +4,8 @@
   "description": "test task",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack",
-    "build": "webpack --mode production",
-    "watch": "webpack --watch",
-    "start": "webpack-dev-server --content-base dist --port 3000 --inline --hot"
+    "build": "webpack --mode production --config webpack.prod.js -p",
+    "start": "webpack-dev-server --content-base dist --port 3000 --inline --hot --config webpack.dev.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +28,7 @@
     "file-loader": "^2.0.0",
     "mini-css-extract-plugin": "^0.4.2",
     "node-sass": "^4.9.3",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
     "resolve-url-loader": "^2.3.0",
     "sass-loader": "^7.1.0",
