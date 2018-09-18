@@ -1,7 +1,7 @@
 import style from "../scss/signup.index.scss";
 import swal from "sweetalert2";
 import { overlayLoader } from "./signup_components/overlayLoader";
-import { deleteInputErr, setInputErr, checkForm } from "./signup_components/formCheck";
+import { setInputErr, checkForm } from "./signup_components/formCheck";
 import "./signup_components/IIFE/uploader";
 import "./signup_components/IIFE/textarea";
 import "./signup_components/IIFE/select";
@@ -25,7 +25,6 @@ function sendingData(formData) {
           confirmButtonColor: "#87b448"
         });
       } else {
-        //TODO: onerror add error to input
         let errorText = response.error.description;
         if (response.error.details) {
           response.error.details.forEach(errItem => {
@@ -57,9 +56,13 @@ document.forms[0].addEventListener("submit", function(e) {
     e.preventDefault();
     return;
   }
+  //image not required we can delete error if form is submitting
+  document.querySelector(".form__file-wrapper").classList.remove("form__input-block--error");
+
+  //collect and sending data
+  let formData = new FormData(document.forms[0]);
 
   const other = document.getElementById("select-other");
-  let formData = new FormData(document.forms[0]);
   if (other.hidden) {
     formData.set("enquiry_type", select.options[select.selectedIndex].innerHTML);
   }
