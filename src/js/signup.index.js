@@ -1,5 +1,5 @@
-import swal from "sweetalert2";
 import style from "../scss/signup.index.scss";
+import swal from "sweetalert2";
 import { overlayLoader } from "./signup_components/overlayLoader";
 import { deleteInputErr, setInputErr, checkForm } from "./signup_components/formCheck";
 import "./signup_components/IIFE/uploader";
@@ -42,7 +42,7 @@ function sendingData(formData) {
       }
     })
     .catch(error => {
-      console.error("Error:", error);
+      loader.hide();
       swal({
         type: "error",
         title: "Error",
