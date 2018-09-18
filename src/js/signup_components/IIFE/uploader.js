@@ -14,12 +14,14 @@ import { deleteInputErr, setInputErr } from "../formCheck";
     //type file check
     if (!f.type.match(/image\/\w*/)) {
       setInputErr(inputFile, "Image only please");
+      this.value = "";
       return;
     }
 
     //size file check
     if (f.size > 5 * 1024 * 1024) {
       setInputErr(inputFile, "Image should not exceed 5MB");
+      this.value = "";
       return;
     }
     //dimensions file check
@@ -38,6 +40,7 @@ import { deleteInputErr, setInputErr } from "../formCheck";
       if (image.offsetHeight > 300 || image.offsetWidth > 300) {
         setInputErr(inputFile, "Image should not exceed 300x300 pixels");
         document.forms[0].removeChild(image);
+        this.value = "";
         return;
       }
       //show uploaded image
