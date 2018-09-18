@@ -1,12 +1,12 @@
-@import "./normalize.css";
-@import "./loader.css";
+@import "./common/normalize.css";
+@import "./common/loader.css";
 
-@import "variables";
-@import "base";
-@import "page-layout";
+@import "common/variables";
+@import "common/base";
+@import "common/page-layout";
 @import "components/header";
 @import "components/sidebar";
 @import "components/main-content";
 
 // it is only for pixel perfect also if it required i would do minor changes  layout
-@import "./minor_changes_only_for_pixel_perfect.scss";
+@import "common/minor_changes_only_for_pixel_perfect.scss";

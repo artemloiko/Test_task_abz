@@ -173,6 +173,7 @@
   }
   &__link {
     margin-right: 18px;
+    color: $subTextColor;
     &:hover {
       color: $activeTextColor;
     }

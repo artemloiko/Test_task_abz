@@ -1,8 +1,8 @@
-@import "./normalize.css";
-@import "./loader.css";
+@import "./common/normalize.css";
+@import "./common/loader.css";
 
-@import "variables";
-@import "base";
+@import "./common/variables";
+@import "./common/base";
 @import "./signup_components/custom_select";
 
 /**
