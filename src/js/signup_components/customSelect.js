@@ -2,7 +2,6 @@ export function customSelect(nativeSelect) {
   //select props
   let isOpen = false;
   let index = -1; // index of current option
-  let optHeight; // height of 1 custom option
 
   //select elements
   const select = document.createElement("div");
@@ -10,91 +9,117 @@ export function customSelect(nativeSelect) {
   const optList = document.createElement("UL");
   let options = []; // array of custom select options
 
-  //creating custom select element
-  //hide native
-  nativeSelect.tabIndex = -1;
-  nativeSelect.hidden = true;
-  //select wrapper
-  select.className = "select form__select";
-  select.tabIndex = 0;
-  select.setAttribute("role", "listbox");
-  //block with selected element
-  selectValue.dataset.placeholder = nativeSelect.dataset.placeholder;
-  selectValue.className = "select-value select-value--placeholder";
+  //return options
+  function createCustomSelect() {
+    //creating custom select element
+    //hide native
+    nativeSelect.tabIndex = -1;
+    nativeSelect.hidden = true;
+    //select wrapper
+    select.className = "select form__select";
+    select.tabIndex = 0;
+    select.setAttribute("role", "listbox");
+    //block with selected element
+    selectValue.dataset.placeholder = nativeSelect.dataset.placeholder;
+    selectValue.className = "select-value select-value--placeholder";
 
-  optList.className = "select-optList";
-  optList.setAttribute("role", "presentation");
+    optList.className = "select-optList";
+    optList.setAttribute("role", "presentation");
 
-  //creating options and fiiling optList
-  for (let i = 0; i < nativeSelect.options.length; i++) {
-    const option = document.createElement("LI");
-    option.classList.add("select-option");
-    option.innerHTML = nativeSelect.options[i].innerHTML;
-    option.dataset.index = i;
-    option.setAttribute("role", "option");
+    //creating options and fiiling optList
+    for (let i = 0; i < nativeSelect.options.length; i++) {
+      const option = document.createElement("LI");
+      option.classList.add("select-option");
+      option.dataset.index = i;
+      option.setAttribute("role", "option");
+      option.innerHTML = nativeSelect.options[i].innerHTML;
 
-    options.push(option);
-    optList.appendChild(option);
+      options.push(option);
+      optList.appendChild(option);
+    }
+
+    //Added custom select in DOM
+    select.appendChild(selectValue);
+    select.appendChild(optList);
+    nativeSelect.insertAdjacentElement("afterend", select);
   }
-  //Added custom select in DOM
-  select.appendChild(selectValue);
-  select.appendChild(optList);
-  nativeSelect.insertAdjacentElement("afterend", select);
-  optHeight = options[0].offsetHeight;
+
+  createCustomSelect();
 
   function showOptList(e) {
     if (isOpen) return;
     isOpen = true;
     select.classList.add("select--active");
+    //to prevent immediate closing
     e.preventDefault();
     e.stopPropagation();
   }
+
   function hideOptList() {
     if (!isOpen) return;
     isOpen = false;
     select.classList.remove("select--active");
   }
+
   function changeOption(keyCode, curOption) {
+    const toggleHighlight = index => options[index].classList.toggle("current");
+
     if (index === -1) {
       if (!keyCode) {
         index = curOption.dataset.index;
-        options[index].classList.toggle("current");
+        toggleHighlight(index);
         return;
       }
-      options[0].classList.toggle("current");
+      toggleHighlight(0);
       index++;
       return;
     }
+
+    //if mouseover
     if (!keyCode) {
-      options[index].classList.toggle("current");
+      toggleHighlight(index);
       index = curOption.dataset.index;
-      options[index].classList.toggle("current");
+      toggleHighlight(index);
       return;
     }
+
+    //if arrowDown
     if (keyCode === 40 && index < options.length - 1) {
-      options[index].classList.toggle("current");
+      toggleHighlight(index);
       index++;
-      options[index].classList.toggle("current");
+      toggleHighlight(index);
     }
+
+    //if arrowUp
     if (keyCode === 38 && index > 0) {
-      options[index].classList.toggle("current");
+      toggleHighlight(index);
       index--;
-      options[index].classList.toggle("current");
+      toggleHighlight(index);
     }
+
     //if options isn't placed in block to scroll
-    if (options[index].offsetTop + optHeight > optList.offsetHeight) {
+    const optHeight = options[0].offsetHeight;
+
+    // console.log("kek");
+    // console.log("offsetHeight + scrollTop optList", optList.offsetHeight + optList.scrollTop);
+    console.log("optList.scrollTop + optHeight", optList.scrollTop);
+    console.log("options[index].offsetTop", options[index].offsetTop);
+
+    if (options[index].offsetTop + optHeight > optList.scrollTop + optList.offsetHeight) {
       optList.scrollTop += optHeight;
     } else if (options[index].offsetTop < optList.scrollTop) {
       optList.scrollTop -= optHeight;
     }
   }
+
   //update selectValue and native select
   function updateValue() {
     selectValue.innerHTML = options[index].innerHTML;
     nativeSelect.selectedIndex = index;
     nativeSelect.dispatchEvent(new Event("change"));
   }
-  //will work once, after first option selection
+
+  //will work once, after first option selection than will be removed
   function hidePlaceholder(e) {
     if (e.keyCode === 13 || (e.keyCode === 7 && index >= 0)) {
       selectValue.classList.remove("select-value--placeholder");
@@ -106,6 +131,7 @@ export function customSelect(nativeSelect) {
   }
   // Event Listeners mouse
   selectValue.addEventListener("click", showOptList);
+
   select.addEventListener("click", function(e) {
     if (e.target.dataset.index) {
       updateValue();
@@ -114,6 +140,7 @@ export function customSelect(nativeSelect) {
       hideOptList();
     }
   });
+
   document.addEventListener("click", hideOptList);
 
   select.addEventListener("mouseover", function(e) {
