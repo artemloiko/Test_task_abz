@@ -17,6 +17,7 @@
   min-height: 816px;
   background: url(../img/bg_img2--long.png) top/100% repeat-y;
 }
+
 /**
 * Common button style
 *
@@ -32,6 +33,7 @@
   font-size: 14px;
   border: none;
 }
+
 /**
 * header layout
 *
@@ -78,12 +80,6 @@
   max-width: 760px;
   margin: auto;
 
-  &__warning {
-    width: 100%;
-    margin-top: -4px;
-    color: #c1c1c1;
-    font-size: 16px;
-  }
   &__wrapper {
     display: flex;
     flex-flow: row wrap;
@@ -92,12 +88,14 @@
     border-radius: 5px;
     padding: 20px;
   }
-  //.form
+
+  //form common inputs styles
   &__input-title {
     margin: 17px 0 6px;
     font-size: 16px;
     color: $mainTextColor;
   }
+
   &__input-block {
     position: relative;
     display: flex;
@@ -111,29 +109,32 @@
         margin-right: 0;
       }
     }
-
-    &--tarea::before {
-      content: attr(data-charCount);
-      position: absolute;
-      right: 0px;
-      top: 15px;
-    }
   }
+
   &__input {
     box-sizing: border-box;
     width: 100%;
     height: 52px;
     line-height: 52px;
+
     padding: 0 20px;
     border-radius: 5px;
     border: 1px solid #c8cdd5;
     background-color: #fff;
-    &:focus {
-      @include blueFocus;
-    }
     &::placeholder {
       color: $subTextColor;
     }
+    &:focus {
+      @include blueFocus;
+    }
+  }
+
+  //special styles for some form elements
+  &__warning {
+    width: 100%;
+    margin-top: -4px;
+    color: #c1c1c1;
+    font-size: 16px;
   }
 
   &__other {
@@ -149,7 +150,15 @@
     padding: 20px;
     resize: none;
   }
+  //textarea char counter styles
+  &__input-block--tarea::before {
+    content: attr(data-charCount);
+    position: absolute;
+    right: 0px;
+    top: 15px;
+  }
 
+  //img uploader
   &__file-wrapper {
     position: relative;
     display: flex;
@@ -157,20 +166,17 @@
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+
     width: 130px;
     height: 130px;
     margin-top: 20px;
+
     padding: 0 10px;
     border-radius: 4px;
     border: 1px solid #c8cdd5;
     background-color: #f7f7f7;
     cursor: pointer;
-    &:focus {
-      @include blueFocus;
-    }
-    & input[type="file"] {
-      display: none;
-    }
+
     &__title {
       margin: -5px 0 5px;
       font-size: 16px;
@@ -182,6 +188,15 @@
       color: #c2c2c4;
       text-align: center;
     }
+
+    &:focus {
+      @include blueFocus;
+    }
+    & input[type="file"] {
+      display: none;
+    }
+
+    //preview loaded img
     &--loaded {
       background-position: center;
       background-size: cover;
@@ -192,6 +207,7 @@
       color: transparent;
     }
   }
+
   &__submit {
     display: block;
     width: 100%;
@@ -206,23 +222,27 @@
 * inputs error styles
 */
 .form__input-block--error {
-  &::after {
-    position: absolute;
-    left: 0px;
-    bottom: -18px;
-    content: attr(data-error);
-    line-height: normal;
-    padding: 2px 0 0 20px;
-    font-size: 12px;
-    color: $errorColor;
-    white-space: nowrap;
-  }
+  //error input styles
   & .form__input {
     border-color: $errorColor;
     &:focus {
       outline: none;
       box-shadow: 0 0 5px $errorColor;
     }
+  }
+
+  //error text styles
+  &::after {
+    content: attr(data-error);
+    position: absolute;
+    left: 0px;
+    bottom: -18px;
+
+    line-height: normal;
+    padding: 2px 0 0 20px;
+    font-size: 12px;
+    color: $errorColor;
+    white-space: nowrap;
   }
 }
 .form__file-wrapper.form__input-block--error {
@@ -235,13 +255,11 @@
     box-shadow: 0 0 5px $errorColor;
   }
 }
-.select--error {
-  &:focus {
-    outline: none;
-    .select-value {
-      border-color: $errorColor;
-      box-shadow: 0 0 5px $errorColor;
-    }
+.select--error:focus {
+  outline: none;
+  .select-value {
+    border-color: $errorColor;
+    box-shadow: 0 0 5px $errorColor;
   }
 }
 .select--error .select-value {
@@ -291,14 +309,15 @@
     font-size: 12px;
     color: #b7bfcd;
     margin-right: 25px;
-    &--copy {
-      margin-right: auto;
-    }
     &:hover {
       color: $activeTextColor;
     }
     &:last-child {
       margin-right: 0;
+    }
+
+    &--copy {
+      margin-right: auto;
     }
   }
 }
