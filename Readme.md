@@ -1,6 +1,9 @@
 # Test task
 
-Please don't pay attention that i did it a long time,because i did it little by little everyday.
+There are can be 1-2 pixel discrepancies and 4-5 in service directory because there was some inaccuracies and irregularities in layout, and i tried it keep pixel perfect so please not to judge about the pixel perfect strict.
+In a real project i think, such inaccuracies require the discussion and small revision of the layout.
+
+And please don't pay attention that i did it a long time, because i did it little by little everyday.
 
 ## What i used
 
@@ -28,5 +31,5 @@ Please don't pay attention that i did it a long time,because i did it little by 
   * `scss/signup_components` components for signup page
   * and other is for main page and common files
   
-# Note*
+### Note*
 I read that you you have the right not to leave a feedback on a test task, but i really want to improve my skills and I will be very grateful even for a small review.
