@@ -99,12 +99,6 @@ export function customSelect(nativeSelect) {
 
     //if options isn't placed in block to scroll
     const optHeight = options[0].offsetHeight;
-
-    // console.log("kek");
-    // console.log("offsetHeight + scrollTop optList", optList.offsetHeight + optList.scrollTop);
-    console.log("optList.scrollTop + optHeight", optList.scrollTop);
-    console.log("options[index].offsetTop", options[index].offsetTop);
-
     if (options[index].offsetTop + optHeight > optList.scrollTop + optList.offsetHeight) {
       optList.scrollTop += optHeight;
     } else if (options[index].offsetTop < optList.scrollTop) {
