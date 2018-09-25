@@ -19,10 +19,7 @@ const clamp = (function() {
       win = window,
       opt = {
         clamp: options.clamp || 2,
-        useNativeClamp:
-          typeof options.useNativeClamp != "undefined"
-            ? options.useNativeClamp
-            : true,
+        useNativeClamp: typeof options.useNativeClamp != "undefined" ? options.useNativeClamp : true,
         splitOnChars: options.splitOnChars || [".", "-", "–", "—", " "], //Split on sentences (periods), hypens, en-dashes, em-dashes, and words (spaces).
         animate: options.animate || false,
         truncationChar: options.truncationChar || "…",
@@ -32,9 +29,7 @@ const clamp = (function() {
       originalText = element.innerHTML,
       supportsNativeClamp = typeof element.style.webkitLineClamp != "undefined",
       clampValue = opt.clamp,
-      isCSSValue =
-        clampValue.indexOf &&
-        (clampValue.indexOf("px") > -1 || clampValue.indexOf("em") > -1),
+      isCSSValue = clampValue.indexOf && (clampValue.indexOf("px") > -1 || clampValue.indexOf("em") > -1),
       truncationHTMLContainer;
 
     if (opt.truncationHTML) {
@@ -62,9 +57,7 @@ const clamp = (function() {
                 return arguments[2].toUpperCase();
               });
             }
-            return el.currentStyle && el.currentStyle[prop]
-              ? el.currentStyle[prop]
-              : null;
+            return el.currentStyle && el.currentStyle[prop] ? el.currentStyle[prop] : null;
           };
           return this;
         };
@@ -187,11 +180,7 @@ const clamp = (function() {
       //Insert the custom HTML before the truncation character
       if (truncationHTMLContainer) {
         target.nodeValue = target.nodeValue.replace(opt.truncationChar, "");
-        element.innerHTML =
-          target.nodeValue +
-          " " +
-          truncationHTMLContainer.innerHTML +
-          opt.truncationChar;
+        element.innerHTML = target.nodeValue + " " + truncationHTMLContainer.innerHTML + opt.truncationChar;
       }
 
       //Search produced valid chunks
@@ -200,10 +189,7 @@ const clamp = (function() {
         if (element.clientHeight <= maxHeight) {
           //There's still more characters to try splitting on, not quite done yet
           if (splitOnChars.length >= 0 && splitChar != "") {
-            applyEllipsis(
-              target,
-              chunks.join(splitChar) + splitChar + lastChunk
-            );
+            applyEllipsis(target, chunks.join(splitChar) + splitChar + lastChunk);
             chunks = null;
           }
           //Finished!
@@ -272,5 +258,21 @@ const clamp = (function() {
 
   return clamp;
 })();
+
+//main page clamp processing
+export function clampAll() {
+  //clamp first p of product proposal cards
+  let cards = document.querySelectorAll(".proposal-card--titleAbove .proposal-card__info:nth-child(3)");
+  [...cards].forEach(item => {
+    item.style.whiteSpace = "normal";
+    clamp(item, { clamp: 2 });
+  });
+  //clamp second p of product proposal cards
+  cards = document.querySelectorAll(".sidebar-block--product .proposal-card__info:last-child");
+  [...cards].forEach(item => {
+    item.style.whiteSpace = "normal";
+    clamp(item, { clamp: 3 });
+  });
+}
 
 export { clamp };
