@@ -5,7 +5,7 @@ import { setInputErr, checkForm } from "./signup_components/formCheck";
 import "./signup_components/IIFE/uploader";
 import "./signup_components/IIFE/textarea";
 import "./signup_components/IIFE/select";
-//Sending data via POST
+
 function sendingData(formData) {
   const loader = overlayLoader(document.querySelector(".loader"));
   loader.show();
@@ -18,6 +18,7 @@ function sendingData(formData) {
     .then(response => {
       loader.hide();
       if (response.success) {
+        resetForm();
         swal({
           type: "success",
           title: "Success",
@@ -56,8 +57,11 @@ document.forms[0].addEventListener("submit", function(e) {
     e.preventDefault();
     return;
   }
-  //image not required we can delete error if form is submitting
-  document.querySelector(".form__file-wrapper").classList.remove("form__input-block--error");
+  //image not required we can delete error and img preview if form is submitting
+  const fileWrapper = document.querySelector(".form__file-wrapper");
+  fileWrapper.classList.remove("form__input-block--error");
+  fileWrapper.classList.remove("form__file-wrapper--loaded");
+  fileWrapper.style.backgroundImage = "";
 
   //collect and sending data
   let formData = new FormData(document.forms[0]);
@@ -70,3 +74,10 @@ document.forms[0].addEventListener("submit", function(e) {
   sendingData(formData);
   e.preventDefault();
 });
+
+function resetForm() {
+  document.getElementById("signup").reset();
+  document.querySelector(".select").reset();
+  const other = document.getElementById("select-other");
+  other.hidden = !(other.required = false);
+}
