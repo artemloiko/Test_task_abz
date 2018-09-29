@@ -14,7 +14,7 @@ function preventDefaultForScrollKeys(e) {
     e.preventDefault();
     return false;
   }
-  if (keys.indexOf(e.keyCode)) {
+  if (~keys.indexOf(e.keyCode)) {
     e.preventDefault();
     return false;
   }
@@ -22,15 +22,13 @@ function preventDefaultForScrollKeys(e) {
 
 function disableScroll() {
   window.addEventListener("DOMMouseScroll", preventDefault, false);
-  window.onwheel = preventDefault; // modern standard
-  window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
-  window.ontouchmove = preventDefault; // mobile
+  window.onwheel = preventDefault;
+  window.ontouchmove = preventDefault;
   document.onkeydown = preventDefaultForScrollKeys;
 }
 
 function enableScroll() {
   window.removeEventListener("DOMMouseScroll", preventDefault, false);
-  window.onmousewheel = document.onmousewheel = null;
   window.onwheel = null;
   window.ontouchmove = null;
   document.onkeydown = null;

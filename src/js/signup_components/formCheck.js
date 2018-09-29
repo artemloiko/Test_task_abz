@@ -1,20 +1,17 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const form = document.forms[0];
-  //forms elements
+  const form = document.getElementById("signup");
   const other = document.getElementById("select-other");
-  const name = form.elements["user_name"];
   const email = form.elements["email"];
-  const subject = form.elements["subject"];
-  const description = form.elements["description"];
 
-  const formRequiredElems = [other, name, email, subject, description];
+  const formRequiredElems = [...form.elements].filter(elem => elem.required);
+  //by default other isn't required, but listener should be added
+  formRequiredElems.push(other);
 
   // Check required fields on blur and input
   formRequiredElems.forEach(elem => {
     elem.addEventListener("blur", function() {
       checkValueMiss(elem);
     });
-
     elem.addEventListener("input", function() {
       if (!this.validity.valueMissing) {
         deleteInputErr(this);
@@ -53,10 +50,11 @@ export function deleteInputErr(input) {
 
 // Check form
 export function checkForm() {
+  const form = document.getElementById("signup");
   const select = document.getElementById("select");
-  const email = document.forms[0].elements["email"];
+  const email = form.elements["email"];
 
-  const formRequiredElems = [...document.forms[0].elements].filter(elem => elem.required);
+  const formRequiredElems = [...form.elements].filter(elem => elem.required);
   //add errors if they are there
   formRequiredElems.forEach(elem => checkValueMiss(elem));
 
@@ -66,7 +64,7 @@ export function checkForm() {
     setInputErr(email, "Invalid email");
     formIsCorrect = false;
   }
-  if (select.dataset.placeholder) {
+  if (select.selectedIndex < 0) {
     select.nextElementSibling.classList.add("select--error");
     setInputErr(select, "This field is required");
     formIsCorrect = false;
