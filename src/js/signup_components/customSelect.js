@@ -1,58 +1,37 @@
 export function customSelect(nativeSelect) {
   //select props
   let isOpen = false;
-  let index = -1; // index of current option
-
+  let index = -1; // index of current option by default it nothing
+  nativeSelect.selectedIndex = -1;
   //select elements
-  const select = document.createElement("div");
-  const selectValue = document.createElement("div");
-  const optList = document.createElement("UL");
-  let options = []; // array of custom select options
+  const selectValue = createSelectValue(nativeSelect);
+  const optList = createOptList(nativeSelect.options);
+  const options = [...optList.children]; // array of custom select options
+  const select = createCustomSelect(optList, selectValue);
 
-  //return options
-  function createCustomSelect() {
-    //creating custom select element
-    //hide native
-    nativeSelect.tabIndex = -1;
-    nativeSelect.hidden = true;
-    //select wrapper
-    select.className = "select form__select";
-    select.tabIndex = 0;
-    select.setAttribute("role", "listbox");
-    //block with selected element
-    selectValue.dataset.placeholder = nativeSelect.dataset.placeholder;
-    selectValue.className = "select-value select-value--placeholder";
+  //add select on page
+  nativeSelect.insertAdjacentElement("afterend", select);
 
-    optList.className = "select-optList";
-    optList.setAttribute("role", "presentation");
+  //some cached dimensions
+  const optHeight = options[0].offsetHeight;
+  const optListHeight = optList.offsetHeight;
 
-    //creating options and fiiling optList
-    for (let i = 0; i < nativeSelect.options.length; i++) {
-      const option = document.createElement("LI");
-      option.classList.add("select-option");
-      option.dataset.index = i;
-      option.setAttribute("role", "option");
-      option.innerHTML = nativeSelect.options[i].innerHTML;
+  //select methods
+  select.reset = () => {
+    toggleHighlight(index);
+    index = nativeSelect.selectedIndex = -1;
+    selectValue.innerHTML = "";
+    selectValue.classList.add("select-value--placeholder");
+  };
 
-      options.push(option);
-      optList.appendChild(option);
-    }
+  //=================================================
+  //=========== Functions for interaction ===========
+  //=================================================
 
-    //Added custom select in DOM
-    select.appendChild(selectValue);
-    select.appendChild(optList);
-    nativeSelect.insertAdjacentElement("afterend", select);
-  }
-
-  createCustomSelect();
-
-  function showOptList(e) {
+  function showOptList() {
     if (isOpen) return;
     isOpen = true;
     select.classList.add("select--active");
-    //to prevent immediate closing
-    e.preventDefault();
-    e.stopPropagation();
   }
 
   function hideOptList() {
@@ -61,61 +40,61 @@ export function customSelect(nativeSelect) {
     select.classList.remove("select--active");
   }
 
-  function changeOption(keyCode, curOption) {
-    const toggleHighlight = index => options[index].classList.toggle("current");
-
-    if (index === -1) {
-      if (!keyCode) {
-        index = curOption.dataset.index;
-        toggleHighlight(index);
-        return;
-      }
-      toggleHighlight(0);
-      index++;
-      return;
-    }
-
-    //if mouseover
-    if (!keyCode) {
-      toggleHighlight(index);
-      index = curOption.dataset.index;
-      toggleHighlight(index);
-      return;
-    }
-
-    //if arrowDown
-    if (keyCode === 40 && index < options.length - 1) {
-      toggleHighlight(index);
-      index++;
-      toggleHighlight(index);
-    }
-
-    //if arrowUp
-    if (keyCode === 38 && index > 0) {
-      toggleHighlight(index);
-      index--;
-      toggleHighlight(index);
-    }
-
-    //if options isn't placed in block to scroll
-    const optHeight = options[0].offsetHeight;
-    if (options[index].offsetTop + optHeight > optList.scrollTop + optList.offsetHeight) {
-      optList.scrollTop += optHeight;
-    } else if (options[index].offsetTop < optList.scrollTop) {
-      optList.scrollTop -= optHeight;
-    }
-  }
-
-  //update selectValue and native select
-  function updateValue() {
+  function updateValue(e) {
+    if (!isOpen || index === -1) return;
     selectValue.innerHTML = options[index].innerHTML;
     nativeSelect.selectedIndex = index;
     nativeSelect.dispatchEvent(new Event("change"));
   }
 
+  function toggleHighlight(prevIndex, index) {
+    if (index !== undefined) options[index].classList.toggle("current");
+    options[prevIndex].classList.toggle("current");
+  }
+
+  function changeOption(e) {
+    if (!isOpen) return;
+
+    const key = e.keyCode;
+    //if nothing was chosen
+    if (index === -1) {
+      toggleHighlight(++index);
+      return;
+    }
+
+    //if mouseover
+    if (key === undefined && e.target.dataset.index) {
+      const curOptIndex = +e.target.dataset.index;
+      toggleHighlight(index, curOptIndex);
+      index = curOptIndex;
+      return;
+    }
+
+    //if arrowDown
+    if (key === 40 && index < options.length - 1) {
+      toggleHighlight(index, ++index);
+    }
+
+    //if arrowUp
+    if (key === 38 && index > 0) {
+      toggleHighlight(index, --index);
+    }
+
+    //if options isn't placed in block to scroll optList
+    const optListScroll = optList.scrollTop;
+    if (options[index].offsetTop + optHeight > optListScroll + optListHeight) {
+      optList.scrollTop += optHeight;
+    } else if (options[index].offsetTop < optListScroll) {
+      optList.scrollTop -= optHeight;
+    }
+
+    e.preventDefault();
+  }
+
   //will work once, after first option selection than will be removed
   function hidePlaceholder(e) {
-    if (e.keyCode === 13 || (e.keyCode === 7 && index >= 0)) {
+    if (!isOpen) return;
+    if (e.keyCode === 13 || (e.keyCode === 9 && index >= 0)) {
       selectValue.classList.remove("select-value--placeholder");
       select.removeEventListener("keydown", hidePlaceholder);
     } else if (e.type === "click" && e.target.dataset.index && index >= 0) {
@@ -123,43 +102,98 @@ export function customSelect(nativeSelect) {
       select.removeEventListener("click", hidePlaceholder);
     }
   }
-  // Event Listeners mouse
-  selectValue.addEventListener("click", showOptList);
 
-  select.addEventListener("click", function(e) {
-    if (e.target.dataset.index) {
-      updateValue();
-      hideOptList();
+  //=============================================
+  //================= Listeners =================
+  //=============================================
+  //hide placeholder after selected element
+  select.addEventListener("click", hidePlaceholder);
+  select.addEventListener("keydown", hidePlaceholder);
+
+  //optList show/hide
+  selectValue.addEventListener("click", function(e) {
+    if (!isOpen) {
+      showOptList();
     } else {
+      hideOptList();
+    }
+    e.preventDefault();
+    e.stopPropagation();
+  });
+  select.addEventListener("keydown", function(e) {
+    if (e.keyCode === 40 || e.keyCode === 38) {
+      showOptList();
+      e.preventDefault();
+    }
+    if (e.keyCode === 27) {
       hideOptList();
     }
   });
 
   document.addEventListener("click", hideOptList);
+  select.addEventListener("blur", hideOptList);
 
-  select.addEventListener("mouseover", function(e) {
-    if (isOpen && e.target.dataset.index) {
-      changeOption(0, e.target);
-    }
-  });
+  //highlight options
+  select.addEventListener("mouseover", changeOption);
+  select.addEventListener("keydown", changeOption);
 
-  // Event Listeners keyboard
-  select.addEventListener("keydown", function(e) {
-    if (!isOpen && (e.keyCode === 40 || e.keyCode === 38)) {
-      showOptList(e);
-    } else if (isOpen && (e.keyCode === 40 || e.keyCode === 38)) {
-      changeOption(e.keyCode);
-      e.preventDefault();
-    } else if (isOpen && (e.keyCode === 13 || e.keyCode === 9)) {
+  //Update value
+  select.addEventListener("click", function(e) {
+    if (e.target.dataset.index) {
       updateValue();
       hideOptList();
-    } else if (e.keyCode === 27) {
+    }
+  });
+  select.addEventListener("keydown", function(e) {
+    if (e.keyCode === 13 || e.keyCode === 9) {
+      updateValue();
       hideOptList();
     }
   });
-  //hide placeholder after selected element
-  select.addEventListener("keydown", hidePlaceholder);
-  select.addEventListener("click", hidePlaceholder);
+
+  return select;
+}
+
+//=====================================================
+//=========== Functions for select creating ===========
+//=====================================================
+
+function createSelectValue(nativeSelect) {
+  const selectValue = document.createElement("div");
+
+  selectValue.dataset.placeholder = nativeSelect.dataset.placeholder || nativeSelect.options[0].innerHTML;
+  selectValue.className = "select-value select-value--placeholder";
+
+  return selectValue;
+}
+
+function createOptList(options) {
+  const optList = document.createElement("UL");
+  optList.className = "select-optList";
+  optList.setAttribute("role", "presentation");
+
+  for (let i = 0; i < options.length; i++) {
+    const option = document.createElement("LI");
+    option.setAttribute("role", "option");
+    option.innerHTML = options[i].innerHTML;
+    option.classList.add("select-option");
+    option.dataset.index = i;
+
+    optList.appendChild(option);
+  }
+
+  return optList;
+}
+
+function createCustomSelect(optList, selectValue) {
+  const select = document.createElement("div");
+
+  select.setAttribute("role", "listbox");
+  select.className = "select form__select";
+  select.tabIndex = 0;
+
+  select.appendChild(selectValue);
+  select.appendChild(optList);
 
   return select;
 }
