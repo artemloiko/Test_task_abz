@@ -70,9 +70,6 @@
     max-width: 100%;
     text-align: center;
   }
-  // for pixel perfect only
-
-  // for pixel perfect only
   &-header {
     @include rowFlex;
     justify-content: space-between;
@@ -115,7 +112,6 @@
     color: $mainTextColor;
     font-size: 16px;
     margin: -2px 0 0 90px;
-    // margin-bottom: 3px;
   }
   &__info {
     min-height: 16px;
@@ -155,13 +151,6 @@
       margin-top: 4px;
     }
     line-height: 135%;
-  }
-}
-
-.sidebar-block--product .proposal-card__info {
-  line-height: 120%;
-  &:last-child {
-    line-height: 125%;
   }
 }
 

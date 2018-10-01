@@ -22,7 +22,7 @@
 /*style the arrow inside the select element:*/
 .select-value::after {
   position: absolute;
-  content: "";
+  content: '';
   top: 20px;
   right: 20px;
   width: 6px;
@@ -78,8 +78,6 @@
   font-size: 16px;
   cursor: pointer;
 }
-// .select-option:hover,
-// .select-option:focus
 .select-option.current {
   background-color: #f4f7fb;
 }

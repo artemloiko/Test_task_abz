@@ -1,0 +1,197 @@
+/**
+* Sign Up form styles
+*
+*/
+.form {
+  position: relative;
+  top: -100px;
+  width: 55%;
+  min-width: 500px;
+  max-width: 760px;
+  margin: auto;
+
+  &__wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    background: #fff;
+    border: 1px solid #e0e2e6;
+    border-radius: 5px;
+    padding: 20px;
+  }
+
+  //form common inputs styles
+  &__input-title {
+    margin: 17px 0 6px;
+    font-size: 16px;
+    color: $mainTextColor;
+  }
+
+  &__input-block {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+
+    &--short {
+      width: 48%;
+      margin-right: 4%;
+      &:nth-child(2n) {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &__input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 52px;
+    line-height: 52px;
+
+    padding: 0 20px;
+    border-radius: 5px;
+    border: 1px solid #c8cdd5;
+    background-color: #fff;
+    &::placeholder {
+      color: $subTextColor;
+    }
+    &:focus {
+      @include blueFocus;
+    }
+  }
+
+  //special styles for some form elements
+  &__warning {
+    width: 100%;
+    margin-top: -4px;
+    color: #c1c1c1;
+    font-size: 16px;
+  }
+
+  &__other {
+    margin-top: 20px;
+  }
+
+  &__textarea {
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 152px;
+    max-height: 500px;
+    line-height: normal;
+    padding: 20px;
+    resize: none;
+  }
+  //textarea char counter styles
+  &__input-block--tarea::before {
+    content: attr(data-charCount);
+    position: absolute;
+    right: 0px;
+    top: 15px;
+  }
+
+  //img uploader
+  &__file-wrapper {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+
+    width: 130px;
+    height: 130px;
+    margin-top: 20px;
+
+    padding: 0 10px;
+    border-radius: 4px;
+    border: 1px solid #c8cdd5;
+    background-color: #f7f7f7;
+    cursor: pointer;
+
+    &__title {
+      margin: -5px 0 5px;
+      font-size: 16px;
+      color: $subTextColor;
+    }
+    &__text {
+      margin: 0;
+      font-size: 12px;
+      color: #c2c2c4;
+      text-align: center;
+    }
+
+    &:focus {
+      @include blueFocus;
+    }
+    & input[type='file'] {
+      display: none;
+    }
+
+    //preview loaded img
+    &--loaded {
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    &--loaded &__title,
+    &--loaded &__text {
+      color: transparent;
+    }
+  }
+
+  &__submit {
+    display: block;
+    width: 100%;
+    height: 52px;
+    margin-top: 18px;
+    line-height: 52px;
+    font-size: 16px;
+  }
+}
+
+/**
+* inputs error styles
+*/
+.form__input-block--error {
+  //error input styles
+  & .form__input {
+    border-color: $errorColor;
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 5px $errorColor;
+    }
+  }
+
+  //error text styles
+  &::after {
+    content: attr(data-error);
+    position: absolute;
+    left: 0px;
+    bottom: -18px;
+
+    line-height: normal;
+    padding: 2px 0 0 20px;
+    font-size: 12px;
+    color: $errorColor;
+    white-space: nowrap;
+  }
+}
+.form__file-wrapper.form__input-block--error {
+  border-color: $errorColor;
+  &::after {
+    padding: 2px 0 0;
+  }
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px $errorColor;
+  }
+}
+.select--error:focus {
+  outline: none;
+  .select-value {
+    border-color: $errorColor;
+    box-shadow: 0 0 5px $errorColor;
+  }
+}
+.select--error .select-value {
+  border-color: $errorColor;
+}

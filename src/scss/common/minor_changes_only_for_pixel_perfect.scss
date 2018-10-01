@@ -48,3 +48,10 @@
 .main-content-header__button {
   margin-right: 2px;
 }
+
+.sidebar-block--product .proposal-card__info {
+  line-height: 120%;
+  &:last-child {
+    line-height: 125%;
+  }
+}

@@ -62,8 +62,6 @@
     width: 24px;
     height: 24px;
     margin-right: 20px;
-    // for pixel perfect only
-    // for pixel perfect only
     & img {
       height: 100%;
     }
@@ -75,7 +73,6 @@
 .profile {
   @include rowFlex;
   align-items: center;
-  //it might be prettier with flex-basis width like sidebar
   flex-basis: 212px;
   &__img {
     width: 32px;
